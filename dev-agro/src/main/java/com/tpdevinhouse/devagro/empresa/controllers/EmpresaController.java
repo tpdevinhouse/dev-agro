@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RequestMapping("/dev-agro")
 public class EmpresaController {
 
@@ -55,7 +55,7 @@ public class EmpresaController {
         BeanUtils.copyProperties(empresaDTO, empresaModel);
         empresaModel.setDataRegistro(LocalDateTime.now(ZoneId.of("UTC")));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(empresaService.cadastrar(empresaModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(empresaService.cadastrarEmpresa(empresaModel));
     }
 
 //  Lista todas as empresas do (BD)
@@ -115,7 +115,7 @@ public class EmpresaController {
 //      Mantem a mesma data de registro da empresa
         empresaModel.setDataRegistro(empresaModelOptional.get().getDataRegistro());
 
-        return ResponseEntity.status(HttpStatus.OK).body(empresaService.cadastrar(empresaModel));
+        return ResponseEntity.status(HttpStatus.OK).body(empresaService.cadastrarEmpresa(empresaModel));
     }
 
 }

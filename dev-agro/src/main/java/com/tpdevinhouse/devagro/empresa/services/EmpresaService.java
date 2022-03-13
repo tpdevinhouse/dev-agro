@@ -1,18 +1,13 @@
 package com.tpdevinhouse.devagro.empresa.services;
 
-import com.tpdevinhouse.devagro.empresa.dtos.EmpresaDTO;
 import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
 import com.tpdevinhouse.devagro.empresa.repositories.EmpresaRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class EmpresaService {
@@ -27,7 +22,7 @@ public class EmpresaService {
 //    Método cadastrar para criar uma nova empresa.
 //    Ultilização do @Transactional, caso aconteça uma intermitencia no metodo seja possível fazer um rollback.
     @Transactional
-    public EmpresaModel cadastrar(EmpresaModel empresaModel) {
+    public EmpresaModel cadastrarEmpresa(EmpresaModel empresaModel) {
         return empresaRepository.save(empresaModel);
     }
 

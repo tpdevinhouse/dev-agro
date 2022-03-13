@@ -15,9 +15,11 @@ public class EmpresaDTO {
     @NotBlank
     private String enderecoEmpresa;
 
+//    aplicar relacionamento
     @NotBlank
     private String fazendasEmpresa;
 
+//    aplicar relacionamento
     @NotBlank
     private String funcinariosEmpresa;
 
