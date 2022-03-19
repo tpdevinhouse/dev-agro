@@ -1,5 +1,6 @@
 package com.tpdevinhouse.devagro.fazenda.controllers;
 
+import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
 import com.tpdevinhouse.devagro.fazenda.dtos.FazendaDTO;
 import com.tpdevinhouse.devagro.fazenda.models.FazendaModel;
 import com.tpdevinhouse.devagro.fazenda.services.FazendaService;
@@ -35,8 +36,9 @@ public class FazendaController {
         }
 
         var fazendaModel = new FazendaModel();
+        var empresaModel = new EmpresaModel();
 
-        BeanUtils.copyProperties(fazendaDTO, fazendaModel);
+        BeanUtils.copyProperties(fazendaDTO, fazendaModel, String.valueOf(empresaModel));
         fazendaModel.setDataRegistroFazenda(LocalDateTime.now(ZoneId.of("UTC")));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(fazendaService.cadastrarFazenda(fazendaModel));
@@ -51,7 +53,7 @@ public class FazendaController {
 
 //  Lista a fazenda por ID
     @GetMapping("/fazenda/{id}")
-    public ResponseEntity<Object> listarFazendaPorId(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> listarFazendaPorId(@PathVariable(value = "id") Long id) {
         Optional<FazendaModel> fazendaModelOptional = fazendaService.listarFazendaPorId(id);
 
         if(fazendaModelOptional.isEmpty()) {
@@ -63,7 +65,7 @@ public class FazendaController {
 
 //  Deleta a fazenda no (BD)
     @DeleteMapping("/fazenda/{id}")
-    public ResponseEntity<Object> deletarFazenda(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> deletarFazenda(@PathVariable(value = "id") Long id) {
         Optional<FazendaModel> fazendaModelOptional = fazendaService.listarFazendaPorId(id);
 
         if(fazendaModelOptional.isEmpty()) {
@@ -75,7 +77,7 @@ public class FazendaController {
     }
 
     @PatchMapping("/fazenda/{id}")
-    public ResponseEntity<Object> atualizaFazenda(@PathVariable(value = "id") UUID id,
+    public ResponseEntity<Object> atualizaFazenda(@PathVariable(value = "id") Long id,
                                                   @RequestBody @Valid FazendaDTO fazendaDTO) {
 
         Optional<FazendaModel> fazendaModelOptional = fazendaService.listarFazendaPorId(id);

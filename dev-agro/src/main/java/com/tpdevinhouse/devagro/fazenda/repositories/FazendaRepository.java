@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface FazendaRepository extends JpaRepository<FazendaModel, UUID> {
+public interface FazendaRepository extends JpaRepository<FazendaModel, Long> {
 
     boolean existsByNomeFazenda(String nomeFazenda);
 

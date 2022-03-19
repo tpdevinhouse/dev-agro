@@ -1,9 +1,11 @@
 package com.tpdevinhouse.devagro.fazenda.models;
 
+import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.Objects;
 
 @Entity
 @Table(name = "DEV_AGRO_FAZENDA")
@@ -14,7 +16,7 @@ public class FazendaModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idFazenda;
+    private Long idFazenda;
 
     @Column(nullable = false, unique = true, length = 50)
     private String nomeFazenda;
@@ -29,17 +31,18 @@ public class FazendaModel implements Serializable {
     @Column(nullable = false)
     private Integer estoqueFazenda;
 
-    @Column(nullable = false)
-    private String empresaProprietariaFazenda;
+    @ManyToOne
+    @JoinColumn(name = "id_empresa")
+    private EmpresaModel empresaProprietariaFazenda;
 
     @Column(nullable = false)
     private LocalDateTime dataRegistroFazenda;
 
-    public UUID getIdFazenda() {
+    public Long getIdFazenda() {
         return idFazenda;
     }
 
-    public void setIdFazenda(UUID idFazenda) {
+    public void setIdFazenda(Long idFazenda) {
         this.idFazenda = idFazenda;
     }
 
@@ -75,11 +78,11 @@ public class FazendaModel implements Serializable {
         this.estoqueFazenda = estoqueFazenda;
     }
 
-    public String getEmpresaProprietariaFazenda() {
+    public EmpresaModel getEmpresaProprietariaFazenda() {
         return empresaProprietariaFazenda;
     }
 
-    public void setEmpresaProprietariaFazenda(String empresaProprietariaFazenda) {
+    public void setEmpresaProprietariaFazenda(EmpresaModel empresaProprietariaFazenda) {
         this.empresaProprietariaFazenda = empresaProprietariaFazenda;
     }
 
@@ -89,5 +92,18 @@ public class FazendaModel implements Serializable {
 
     public void setDataRegistroFazenda(LocalDateTime dataRegistroFazenda) {
         this.dataRegistroFazenda = dataRegistroFazenda;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FazendaModel)) return false;
+        FazendaModel that = (FazendaModel) o;
+        return getIdFazenda().equals(that.getIdFazenda());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdFazenda());
     }
 }

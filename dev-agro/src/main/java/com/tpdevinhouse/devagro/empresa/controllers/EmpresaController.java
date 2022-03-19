@@ -66,7 +66,7 @@ public class EmpresaController {
 
 //  Lista a empresa por ID
     @GetMapping("/empresa/{id}")
-    public ResponseEntity<Object> listarEmpresaPorId(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> listarEmpresaPorId(@PathVariable(value = "id") Long id) {
         Optional<EmpresaModel> empresaModelOptional = empresaService.listarPorId(id);
 
 //      Valida se o ID informado está cadastrado no (BD)
@@ -78,7 +78,7 @@ public class EmpresaController {
 
 //  Deleta a empresa no (BD)
     @DeleteMapping("/empresa/{id}")
-    public ResponseEntity<Object> deletarEmpresa(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> deletarEmpresa(@PathVariable(value = "id") Long id) {
         Optional<EmpresaModel> empresaModelOptional = empresaService.listarPorId(id);
         if (empresaModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Registro não encontrado!");
@@ -89,7 +89,7 @@ public class EmpresaController {
 
 //  Atualiza os dados da empresa
     @PatchMapping("/empresa/{id}")
-    public ResponseEntity<Object> atualizaEmpresa(@PathVariable(value = "id") UUID id,
+    public ResponseEntity<Object> atualizaEmpresa(@PathVariable(value = "id") Long id,
                                                   @RequestBody @Valid EmpresaDTO empresaDTO) {
 
         Pattern pattern = Pattern.compile("\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}");

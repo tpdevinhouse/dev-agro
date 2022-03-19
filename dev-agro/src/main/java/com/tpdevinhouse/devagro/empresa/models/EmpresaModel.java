@@ -1,9 +1,14 @@
 package com.tpdevinhouse.devagro.empresa.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tpdevinhouse.devagro.fazenda.models.FazendaModel;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "DEV_AGRO_EMPRESA")
@@ -14,7 +19,7 @@ public class EmpresaModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idEmpresa;
+    private Long idEmpresa;
 
     @Column(nullable = false, unique = true, length = 50)
     private String nomeEmpresa;
@@ -26,22 +31,23 @@ public class EmpresaModel implements Serializable {
     private String enderecoEmpresa;
 
     @Column(nullable = false)
-    private String fazendasEmpresa;
-
-    @Column(nullable = false)
-    private String funcinariosEmpresa;
-
-    @Column(nullable = false)
-    private String graosEmpresa;
-
-    @Column(nullable = false)
     private LocalDateTime dataRegistro;
 
-    public UUID getIdEmpresa() {
+    @JsonIgnore
+    @OneToMany(mappedBy = "empresaProprietariaFazenda")
+    private List<FazendaModel> fazendaModels = new ArrayList<>();
+
+    public EmpresaModel(){}
+
+    public EmpresaModel(Long id) {
+        this.idEmpresa = id;
+    }
+
+    public Long getIdEmpresa() {
         return idEmpresa;
     }
 
-    public void setIdEmpresa(UUID idEmpresa) {
+    public void setIdEmpresa(Long idEmpresa) {
         this.idEmpresa = idEmpresa;
     }
 
@@ -69,35 +75,28 @@ public class EmpresaModel implements Serializable {
         this.enderecoEmpresa = enderecoEmpresa;
     }
 
-    public String getFazendasEmpresa() {
-        return fazendasEmpresa;
-    }
-
-    public void setFazendasEmpresa(String fazendasEmpresa) {
-        this.fazendasEmpresa = fazendasEmpresa;
-    }
-
-    public String getFuncinariosEmpresa() {
-        return funcinariosEmpresa;
-    }
-
-    public void setFuncinariosEmpresa(String funcinariosEmpresa) {
-        this.funcinariosEmpresa = funcinariosEmpresa;
-    }
-
-    public String getGraosEmpresa() {
-        return graosEmpresa;
-    }
-
-    public void setGraosEmpresa(String graosEmpresa) {
-        this.graosEmpresa = graosEmpresa;
-    }
-
     public LocalDateTime getDataRegistro() {
         return dataRegistro;
     }
 
     public void setDataRegistro(LocalDateTime dataRegistro) {
         this.dataRegistro = dataRegistro;
+    }
+
+    public List<FazendaModel> getFazendaModels() {
+        return fazendaModels;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EmpresaModel)) return false;
+        EmpresaModel that = (EmpresaModel) o;
+        return getIdEmpresa().equals(that.getIdEmpresa());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdEmpresa());
     }
 }

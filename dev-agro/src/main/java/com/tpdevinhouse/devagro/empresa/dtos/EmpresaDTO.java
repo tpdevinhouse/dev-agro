@@ -15,17 +15,6 @@ public class EmpresaDTO {
     @NotBlank
     private String enderecoEmpresa;
 
-//    aplicar relacionamento
-    @NotBlank
-    private String fazendasEmpresa;
-
-//    aplicar relacionamento
-    @NotBlank
-    private String funcinariosEmpresa;
-
-    @NotBlank
-    private String graosEmpresa;
-
     public String getNomeEmpresa() {
         return nomeEmpresa;
     }
@@ -49,29 +38,4 @@ public class EmpresaDTO {
     public void setEnderecoEmpresa(String enderecoEmpresa) {
         this.enderecoEmpresa = enderecoEmpresa;
     }
-
-    public String getFazendasEmpresa() {
-        return fazendasEmpresa;
-    }
-
-    public void setFazendasEmpresa(String fazendasEmpresa) {
-        this.fazendasEmpresa = fazendasEmpresa;
-    }
-
-    public String getFuncinariosEmpresa() {
-        return funcinariosEmpresa;
-    }
-
-    public void setFuncinariosEmpresa(String funcinariosEmpresa) {
-        this.funcinariosEmpresa = funcinariosEmpresa;
-    }
-
-    public String getGraosEmpresa() {
-        return graosEmpresa;
-    }
-
-    public void setGraosEmpresa(String graosEmpresa) {
-        this.graosEmpresa = graosEmpresa;
-    }
-
 }

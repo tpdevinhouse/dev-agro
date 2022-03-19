@@ -1,7 +1,8 @@
 package com.tpdevinhouse.devagro.fazenda.dtos;
 
+import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
+
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class FazendaDTO {
@@ -18,9 +19,8 @@ public class FazendaDTO {
 
     @NotNull
     private Integer estoqueFazenda;
-
-    @NotBlank
-    private String empresaProprietariaFazenda;
+    
+    private EmpresaModel empresaProprietariaFazenda;
 
     public String getNomeFazenda() {
         return nomeFazenda;
@@ -54,11 +54,11 @@ public class FazendaDTO {
         this.estoqueFazenda = estoqueFazenda;
     }
 
-    public String getEmpresaProprietariaFazenda() {
+    public EmpresaModel getEmpresaProprietariaFazenda() {
         return empresaProprietariaFazenda;
     }
 
-    public void setEmpresaProprietariaFazenda(String empresaProprietariaFazenda) {
+    public void setEmpresaProprietariaFazenda(EmpresaModel empresaProprietariaFazenda) {
         this.empresaProprietariaFazenda = empresaProprietariaFazenda;
     }
 }

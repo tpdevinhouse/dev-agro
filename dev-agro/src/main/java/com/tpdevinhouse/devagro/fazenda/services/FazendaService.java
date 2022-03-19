@@ -31,7 +31,7 @@ public class FazendaService {
         return fazendaRepository.findAll();
     }
 
-    public Optional<FazendaModel> listarFazendaPorId(UUID id) {
+    public Optional<FazendaModel> listarFazendaPorId(Long id) {
         return fazendaRepository.findById(id);
     }
 

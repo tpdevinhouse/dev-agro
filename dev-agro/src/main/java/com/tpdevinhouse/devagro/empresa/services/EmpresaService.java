@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class EmpresaService {
@@ -39,7 +38,7 @@ public class EmpresaService {
         return empresaRepository.findAll();
     }
 
-    public Optional<EmpresaModel> listarPorId(UUID id) {
+    public Optional<EmpresaModel> listarPorId(Long id) {
         return empresaRepository.findById(id);
     }
 
