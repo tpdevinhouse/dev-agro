@@ -31,7 +31,7 @@ public class FuncionarioService {
         return funcionarioRepository.findAll();
     }
 
-    public Optional<FuncionarioModel> listarFuncionarioPorId(UUID id) {
+    public Optional<FuncionarioModel> listarFuncionarioPorId(Long id) {
         return funcionarioRepository.findById(id);
     }
 

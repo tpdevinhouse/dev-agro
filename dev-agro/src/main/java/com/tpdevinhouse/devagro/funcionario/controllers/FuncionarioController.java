@@ -1,5 +1,6 @@
 package com.tpdevinhouse.devagro.funcionario.controllers;
 
+import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
 import com.tpdevinhouse.devagro.funcionario.dtos.FuncionarioDTO;
 import com.tpdevinhouse.devagro.funcionario.models.FuncionarioModel;
 import com.tpdevinhouse.devagro.funcionario.services.FuncionarioService;
@@ -54,9 +55,9 @@ public class FuncionarioController {
         }
 
         var funcionarioModel = new FuncionarioModel();
+        var empresaModel = new EmpresaModel();
 
-        BeanUtils.copyProperties(funcionarioDTO, funcionarioModel);
-
+        BeanUtils.copyProperties(funcionarioDTO, funcionarioModel, String.valueOf(empresaModel));
         funcionarioModel.setDataRegistroFuncionario(LocalDateTime.now(ZoneId.of("UTC")));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(funcionarioService.cadastrarFuncionario(funcionarioModel));
@@ -71,7 +72,7 @@ public class FuncionarioController {
 
 //  Lista o funcionário por ID
     @GetMapping("/funcionario/{id}")
-    public ResponseEntity<Object> listarFuncionarioPorId(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> listarFuncionarioPorId(@PathVariable(value = "id") Long id) {
         Optional<FuncionarioModel> funcionarioModelOptional = funcionarioService.listarFuncionarioPorId(id);
 
 //      Valida se o ID informado está cadastrado no (BD)
@@ -84,7 +85,7 @@ public class FuncionarioController {
 
 //  Deleta o funcionário no (BD)
     @DeleteMapping("/funcionario/{id}")
-    public ResponseEntity<Object> deletarFuncionario(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> deletarFuncionario(@PathVariable(value = "id") Long id) {
         Optional<FuncionarioModel> funcionarioModelOptional = funcionarioService.listarFuncionarioPorId(id);
         if (funcionarioModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Registro não encontrado");
@@ -95,7 +96,7 @@ public class FuncionarioController {
 
 //  Atualiza o funcionário no (BD)
     @PatchMapping("/funcionario/{id}")
-    public ResponseEntity<Object> atualizaFuncionario(@PathVariable(value = "id") UUID id,
+    public ResponseEntity<Object> atualizaFuncionario(@PathVariable(value = "id") Long id,
                                                       @RequestBody @Valid FuncionarioDTO funcionarioDTO) {
 
         Pattern patternTelefone = Pattern.compile("^\\([1-9]\\d\\)\\s9?\\d{4}\\d{4}$");

@@ -19,7 +19,7 @@ public class FazendaDTO {
 
     @NotNull
     private Integer estoqueFazenda;
-    
+
     private EmpresaModel empresaProprietariaFazenda;
 
     public String getNomeFazenda() {

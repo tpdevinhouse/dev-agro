@@ -1,8 +1,11 @@
 package com.tpdevinhouse.devagro.funcionario.models;
 
+import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -14,7 +17,7 @@ public class FuncionarioModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idFuncinario;
+    private Long idFuncinario;
 
     @Column(nullable = false, unique = true, length = 50)
     private String nomeFuncinario;
@@ -37,17 +40,19 @@ public class FuncionarioModel implements Serializable {
     @Column(nullable = false, length = 10)
     private String dataContratacaoFuncionario;
 
-    @Column(nullable = false)
-    private String empresaFuncionario;
+    @ManyToOne
+    @JoinColumn(name = "id_empresa")
+    private EmpresaModel empresaFuncionario;
 
     @Column(nullable = false)
     private LocalDateTime dataRegistroFuncionario;
 
-    public UUID getIdFuncinario() {
+
+    public Long getIdFuncinario() {
         return idFuncinario;
     }
 
-    public void setIdFuncinario(UUID idFuncinario) {
+    public void setIdFuncinario(Long idFuncinario) {
         this.idFuncinario = idFuncinario;
     }
 
@@ -107,11 +112,11 @@ public class FuncionarioModel implements Serializable {
         this.dataContratacaoFuncionario = dataContratacaoFuncionario;
     }
 
-    public String getEmpresaFuncionario() {
+    public EmpresaModel getEmpresaFuncionario() {
         return empresaFuncionario;
     }
 
-    public void setEmpresaFuncionario(String empresaFuncionario) {
+    public void setEmpresaFuncionario(EmpresaModel empresaFuncionario) {
         this.empresaFuncionario = empresaFuncionario;
     }
 
@@ -121,5 +126,18 @@ public class FuncionarioModel implements Serializable {
 
     public void setDataRegistroFuncionario(LocalDateTime dataRegistroFuncionario) {
         this.dataRegistroFuncionario = dataRegistroFuncionario;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FuncionarioModel)) return false;
+        FuncionarioModel that = (FuncionarioModel) o;
+        return getIdFuncinario().equals(that.getIdFuncinario());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdFuncinario());
     }
 }

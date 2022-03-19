@@ -1,5 +1,7 @@
 package com.tpdevinhouse.devagro.funcionario.dtos;
 
+import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -31,8 +33,8 @@ public class FuncionarioDTO {
     @Size(max = 10)
     private String dataContratacaoFuncionario;
 
-    @NotBlank
-    private String empresaFuncionario;
+
+    private EmpresaModel empresaFuncionario;
 
     public String getNomeFuncinario() {
         return nomeFuncinario;
@@ -90,11 +92,11 @@ public class FuncionarioDTO {
         this.dataContratacaoFuncionario = dataContratacaoFuncionario;
     }
 
-    public String getEmpresaFuncionario() {
+    public EmpresaModel getEmpresaFuncionario() {
         return empresaFuncionario;
     }
 
-    public void setEmpresaFuncionario(String empresaFuncionario) {
+    public void setEmpresaFuncionario(EmpresaModel empresaFuncionario) {
         this.empresaFuncionario = empresaFuncionario;
     }
 }

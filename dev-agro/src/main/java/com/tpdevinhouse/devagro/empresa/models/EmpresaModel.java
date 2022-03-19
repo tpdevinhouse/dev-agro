@@ -2,6 +2,7 @@ package com.tpdevinhouse.devagro.empresa.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tpdevinhouse.devagro.fazenda.models.FazendaModel;
+import com.tpdevinhouse.devagro.funcionario.models.FuncionarioModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -36,6 +37,10 @@ public class EmpresaModel implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "empresaProprietariaFazenda")
     private List<FazendaModel> fazendaModels = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "empresaFuncionario")
+    private List<FuncionarioModel> funcionarioModels = new ArrayList<>();
 
     public EmpresaModel(){}
 
@@ -85,6 +90,10 @@ public class EmpresaModel implements Serializable {
 
     public List<FazendaModel> getFazendaModels() {
         return fazendaModels;
+    }
+
+    public List<FuncionarioModel> getFuncionarioModels() {
+        return funcionarioModels;
     }
 
     @Override
