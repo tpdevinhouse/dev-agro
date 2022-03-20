@@ -4,6 +4,7 @@ import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
 import com.tpdevinhouse.devagro.fazenda.dtos.FazendaDTO;
 import com.tpdevinhouse.devagro.fazenda.models.FazendaModel;
 import com.tpdevinhouse.devagro.fazenda.services.FazendaService;
+import com.tpdevinhouse.devagro.grao.models.GraoModel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +38,9 @@ public class FazendaController {
 
         var fazendaModel = new FazendaModel();
         var empresaModel = new EmpresaModel();
+        var graoModel = new GraoModel();
 
-        BeanUtils.copyProperties(fazendaDTO, fazendaModel, String.valueOf(empresaModel));
+        BeanUtils.copyProperties(fazendaDTO, fazendaModel, String.valueOf(empresaModel), String.valueOf(graoModel));
         fazendaModel.setDataRegistroFazenda(LocalDateTime.now(ZoneId.of("UTC")));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(fazendaService.cadastrarFazenda(fazendaModel));

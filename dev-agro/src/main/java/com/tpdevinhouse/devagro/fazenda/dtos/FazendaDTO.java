@@ -1,6 +1,7 @@
 package com.tpdevinhouse.devagro.fazenda.dtos;
 
 import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
+import com.tpdevinhouse.devagro.grao.models.GraoModel;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,9 +14,7 @@ public class FazendaDTO {
     @NotBlank
     private String enderecoFazenda;
 
-//    aplicar relacionamento
-    @NotBlank
-    private String tipoGrao;
+    private GraoModel tipoGrao;
 
     @NotNull
     private Integer estoqueFazenda;
@@ -38,11 +37,11 @@ public class FazendaDTO {
         this.enderecoFazenda = enderecoFazenda;
     }
 
-    public String getTipoGrao() {
+    public GraoModel getTipoGrao() {
         return tipoGrao;
     }
 
-    public void setTipoGrao(String tipoGrao) {
+    public void setTipoGrao(GraoModel tipoGrao) {
         this.tipoGrao = tipoGrao;
     }
 

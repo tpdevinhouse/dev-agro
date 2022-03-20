@@ -1,6 +1,7 @@
 package com.tpdevinhouse.devagro.fazenda.models;
 
 import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
+import com.tpdevinhouse.devagro.grao.models.GraoModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,8 +25,9 @@ public class FazendaModel implements Serializable {
     @Column(nullable = false)
     private String enderecoFazenda;
 
-    @Column(nullable = false)
-    private String tipoGrao;
+    @ManyToOne
+    @JoinColumn(name = "id_grao")
+    private GraoModel tipoGrao;
 
 //  Fazer estoque retonar o valor númerico + KG
     @Column(nullable = false)
@@ -62,11 +64,11 @@ public class FazendaModel implements Serializable {
         this.enderecoFazenda = enderecoFazenda;
     }
 
-    public String getTipoGrao() {
+    public GraoModel getTipoGrao() {
         return tipoGrao;
     }
 
-    public void setTipoGrao(String tipoGrao) {
+    public void setTipoGrao(GraoModel tipoGrao) {
         this.tipoGrao = tipoGrao;
     }
 

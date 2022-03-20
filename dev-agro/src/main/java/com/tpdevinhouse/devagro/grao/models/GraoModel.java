@@ -1,10 +1,14 @@
 package com.tpdevinhouse.devagro.grao.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
+import com.tpdevinhouse.devagro.fazenda.models.FazendaModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -30,6 +34,10 @@ public class GraoModel implements Serializable {
 
     @Column(nullable = false)
     private LocalDateTime dataRegistroGrao;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "tipoGrao")
+    private List<FazendaModel> fazendaModels = new ArrayList<>();
 
     public Long getIdGrao() {
         return idGrao;
@@ -69,6 +77,10 @@ public class GraoModel implements Serializable {
 
     public void setDataRegistroGrao(LocalDateTime dataRegistroGrao) {
         this.dataRegistroGrao = dataRegistroGrao;
+    }
+
+    public List<FazendaModel> getFazendaModels() {
+        return fazendaModels;
     }
 
     @Override
