@@ -1,5 +1,6 @@
 package com.tpdevinhouse.devagro.grao.controllers;
 
+import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
 import com.tpdevinhouse.devagro.grao.dtos.GraoDTO;
 import com.tpdevinhouse.devagro.grao.models.GraoModel;
 import com.tpdevinhouse.devagro.grao.services.GraoService;
@@ -31,8 +32,9 @@ public class GraoController {
     public ResponseEntity<Object> cadastraGrao(@RequestBody @Valid GraoDTO graoDTO) {
 
         var graoModel = new GraoModel();
+        var empresaModel = new EmpresaModel();
 
-        BeanUtils.copyProperties(graoDTO, graoModel);
+        BeanUtils.copyProperties(graoDTO, graoModel, String.valueOf(empresaModel));
         graoModel.setDataRegistroGrao(LocalDateTime.now(ZoneId.of("UTC")));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(graoService.cadastrarGrao(graoModel));
@@ -47,7 +49,7 @@ public class GraoController {
 
 //  Lista o grão por ID
     @GetMapping("/grao/{id}")
-    public ResponseEntity<Object> listarGraoPorId(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> listarGraoPorId(@PathVariable(value = "id") Long id) {
         Optional<GraoModel> graoModelOptional = graoService.listarGraoPorId(id);
 
         if(graoModelOptional.isEmpty()) {
@@ -59,7 +61,7 @@ public class GraoController {
 
 //  Deleta o grão no (BD)
     @DeleteMapping("/grao/{id}")
-    public ResponseEntity<Object> deletarGrao(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> deletarGrao(@PathVariable(value = "id") Long id) {
         Optional<GraoModel> graoModelOptional = graoService.listarGraoPorId(id);
         if (graoModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Registro não encontrado!");
@@ -71,7 +73,7 @@ public class GraoController {
 
 //  Atualiza os dados do grão
     @PatchMapping("/grao/{id}")
-    public ResponseEntity<Object> atualizaGrao(@PathVariable(value = "id") UUID id,
+    public ResponseEntity<Object> atualizaGrao(@PathVariable(value = "id") Long id,
                                                @RequestBody @Valid GraoDTO graoDTO) {
 
         Optional<GraoModel> graoModelOptional = graoService.listarGraoPorId(id);

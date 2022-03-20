@@ -1,9 +1,11 @@
 package com.tpdevinhouse.devagro.grao.models;
 
+import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.Objects;
 
 @Entity
 @Table(name = "DEV_AGRO_GRAO")
@@ -14,13 +16,14 @@ public class GraoModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idGrao;
+    private Long idGrao;
 
     @Column(nullable = false, length = 12)
     private String nomeGrao;
 
-    @Column(nullable = false)
-    private String empresaGrao;
+    @ManyToOne
+    @JoinColumn(name = "id_empresa")
+    private EmpresaModel empresaGrao;
 
     @Column(nullable = false)
     private Integer tempoMedioColheita;
@@ -28,11 +31,11 @@ public class GraoModel implements Serializable {
     @Column(nullable = false)
     private LocalDateTime dataRegistroGrao;
 
-    public UUID getIdGrao() {
+    public Long getIdGrao() {
         return idGrao;
     }
 
-    public void setIdGrao(UUID idGrao) {
+    public void setIdGrao(Long idGrao) {
         this.idGrao = idGrao;
     }
 
@@ -44,11 +47,11 @@ public class GraoModel implements Serializable {
         this.nomeGrao = nomeGrao;
     }
 
-    public String getEmpresaGrao() {
+    public EmpresaModel getEmpresaGrao() {
         return empresaGrao;
     }
 
-    public void setEmpresaGrao(String empresaGrao) {
+    public void setEmpresaGrao(EmpresaModel empresaGrao) {
         this.empresaGrao = empresaGrao;
     }
 
@@ -67,4 +70,18 @@ public class GraoModel implements Serializable {
     public void setDataRegistroGrao(LocalDateTime dataRegistroGrao) {
         this.dataRegistroGrao = dataRegistroGrao;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GraoModel)) return false;
+        GraoModel graoModel = (GraoModel) o;
+        return getIdGrao().equals(graoModel.getIdGrao());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdGrao());
+    }
+
 }

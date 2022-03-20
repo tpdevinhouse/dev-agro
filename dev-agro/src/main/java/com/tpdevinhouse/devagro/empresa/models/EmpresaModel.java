@@ -3,6 +3,7 @@ package com.tpdevinhouse.devagro.empresa.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tpdevinhouse.devagro.fazenda.models.FazendaModel;
 import com.tpdevinhouse.devagro.funcionario.models.FuncionarioModel;
+import com.tpdevinhouse.devagro.grao.models.GraoModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -41,6 +42,10 @@ public class EmpresaModel implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "empresaFuncionario")
     private List<FuncionarioModel> funcionarioModels = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "empresaGrao")
+    private List<GraoModel> graoModels = new ArrayList<>();
 
     public EmpresaModel(){}
 
@@ -94,6 +99,10 @@ public class EmpresaModel implements Serializable {
 
     public List<FuncionarioModel> getFuncionarioModels() {
         return funcionarioModels;
+    }
+
+    public List<GraoModel> getGraoModels() {
+        return graoModels;
     }
 
     @Override

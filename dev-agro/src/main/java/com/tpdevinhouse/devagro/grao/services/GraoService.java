@@ -28,7 +28,7 @@ public class GraoService {
         return graoRepository.findAll();
     }
 
-    public Optional<GraoModel> listarGraoPorId(UUID id) {
+    public Optional<GraoModel> listarGraoPorId(Long id) {
         return graoRepository.findById(id);
     }
 

@@ -1,5 +1,7 @@
 package com.tpdevinhouse.devagro.grao.dtos;
 
+import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -8,8 +10,7 @@ public class GraoDTO {
     @NotBlank
     private String nomeGrao;
 
-    @NotBlank
-    private String empresaGrao;
+    private EmpresaModel empresaGrao;
 
     @NotNull
     private Integer tempoMedioColheita;
@@ -22,11 +23,11 @@ public class GraoDTO {
         this.nomeGrao = nomeGrao;
     }
 
-    public String getEmpresaGrao() {
+    public EmpresaModel getEmpresaGrao() {
         return empresaGrao;
     }
 
-    public void setEmpresaGrao(String empresaGrao) {
+    public void setEmpresaGrao(EmpresaModel empresaGrao) {
         this.empresaGrao = empresaGrao;
     }
 
