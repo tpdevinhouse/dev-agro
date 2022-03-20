@@ -3,6 +3,7 @@ package com.tpdevinhouse.devagro.fazenda.controllers;
 import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
 import com.tpdevinhouse.devagro.fazenda.dtos.FazendaDTO;
 import com.tpdevinhouse.devagro.fazenda.models.FazendaModel;
+import com.tpdevinhouse.devagro.fazenda.repositories.FazendaRepository;
 import com.tpdevinhouse.devagro.fazenda.services.FazendaService;
 import com.tpdevinhouse.devagro.grao.models.GraoModel;
 import org.springframework.beans.BeanUtils;
@@ -28,11 +29,11 @@ public class FazendaController {
         this.fazendaService = fazendaService;
     }
 
-//  Cria uma nova fazenda no (BD)
+    //  Cria uma nova fazenda no (BD)
     @PostMapping("/fazenda")
     public ResponseEntity<Object> cadastraFazenda(@RequestBody @Valid FazendaDTO fazendaDTO) {
 
-        if(fazendaService.existsByNomeFazenda(fazendaDTO.getNomeFazenda())) {
+        if (fazendaService.existsByNomeFazenda(fazendaDTO.getNomeFazenda())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Nome de fazenda já cadastrado!");
         }
 
@@ -47,30 +48,31 @@ public class FazendaController {
 
     }
 
-//  Lista todas as fazendas do (BD)
+    //  Lista todas as fazendas do (BD)
     @GetMapping("/fazenda")
     public ResponseEntity<List<FazendaModel>> listarFazendas() {
         return ResponseEntity.status(HttpStatus.OK).body(fazendaService.listarTodasAsFazendas());
     }
 
-//  Lista a fazenda por ID
+    //  Lista a fazenda por ID
     @GetMapping("/fazenda/{id}")
     public ResponseEntity<Object> listarFazendaPorId(@PathVariable(value = "id") Long id) {
         Optional<FazendaModel> fazendaModelOptional = fazendaService.listarFazendaPorId(id);
 
-        if(fazendaModelOptional.isEmpty()) {
+        if (fazendaModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fazenda não localizada!");
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(fazendaModelOptional.get());
     }
 
-//  Deleta a fazenda no (BD)
+
+    //  Deleta a fazenda no (BD)
     @DeleteMapping("/fazenda/{id}")
     public ResponseEntity<Object> deletarFazenda(@PathVariable(value = "id") Long id) {
         Optional<FazendaModel> fazendaModelOptional = fazendaService.listarFazendaPorId(id);
 
-        if(fazendaModelOptional.isEmpty()) {
+        if (fazendaModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Registro não encontrado!");
         }
 
@@ -78,6 +80,7 @@ public class FazendaController {
         return ResponseEntity.status(HttpStatus.OK).body("Fazenda deletada com sucesso!");
     }
 
+    //  Atualizar dados da fazenda
     @PatchMapping("/fazenda/{id}")
     public ResponseEntity<Object> atualizaFazenda(@PathVariable(value = "id") Long id,
                                                   @RequestBody @Valid FazendaDTO fazendaDTO) {
@@ -100,6 +103,37 @@ public class FazendaController {
 
         return ResponseEntity.status(HttpStatus.OK).body(fazendaService.cadastrarFazenda(fazendaModel));
 
+    }
+
+
+//  Adiciona estoque de grãos
+    @GetMapping("/fazenda/estoque/adicionar/{id}/")
+    public ResponseEntity<Object> adicionarEstoque(@PathVariable(value = "id") Long id,
+                                                   @RequestParam(name = "adicionarEstoque") Integer adicionarEstoque) {
+        Optional<FazendaModel> fazendaModelOptional = fazendaService.listarFazendaPorId(id);
+
+        if (fazendaModelOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fazenda não localizada!");
+        }
+
+        fazendaModelOptional.get().setEstoqueFazenda(fazendaModelOptional.get().getEstoqueFazenda() + adicionarEstoque);
+
+        return ResponseEntity.status(HttpStatus.OK).body(fazendaService.cadastrarFazenda(fazendaModelOptional.get()));
+    }
+
+    //  Adiciona estoque de grãos
+    @GetMapping("/fazenda/estoque/retirar/{id}/")
+    public ResponseEntity<Object> retirarEstoque(@PathVariable(value = "id") Long id,
+                                                   @RequestParam(name = "retirarEstoque") Integer retirarEstoque) {
+        Optional<FazendaModel> fazendaModelOptional = fazendaService.listarFazendaPorId(id);
+
+        if (fazendaModelOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fazenda não localizada!");
+        }
+
+        fazendaModelOptional.get().setEstoqueFazenda(fazendaModelOptional.get().getEstoqueFazenda() - retirarEstoque);
+
+        return ResponseEntity.status(HttpStatus.OK).body(fazendaService.cadastrarFazenda(fazendaModelOptional.get()));
     }
 
 }

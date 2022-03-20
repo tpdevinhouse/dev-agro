@@ -3,6 +3,7 @@ package com.tpdevinhouse.devagro.empresa.controllers;
 import com.tpdevinhouse.devagro.empresa.dtos.EmpresaDTO;
 import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
 import com.tpdevinhouse.devagro.empresa.services.EmpresaService;
+import com.tpdevinhouse.devagro.fazenda.models.FazendaModel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

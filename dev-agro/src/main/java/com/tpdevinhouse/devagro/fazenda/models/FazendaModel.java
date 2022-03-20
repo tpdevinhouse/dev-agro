@@ -76,8 +76,9 @@ public class FazendaModel implements Serializable {
         return estoqueFazenda;
     }
 
-    public void setEstoqueFazenda(Integer estoqueFazenda) {
+    public Integer setEstoqueFazenda(Integer estoqueFazenda) {
         this.estoqueFazenda = estoqueFazenda;
+        return estoqueFazenda;
     }
 
     public EmpresaModel getEmpresaProprietariaFazenda() {

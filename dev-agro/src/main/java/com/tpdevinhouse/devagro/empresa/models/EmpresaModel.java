@@ -101,8 +101,7 @@ public class EmpresaModel implements Serializable {
         return funcionarioModels;
     }
 
-    public List<GraoModel> getGraoModels() {
-        return graoModels;
+    public List<GraoModel> getGraoModels() {        return graoModels;
     }
 
     @Override

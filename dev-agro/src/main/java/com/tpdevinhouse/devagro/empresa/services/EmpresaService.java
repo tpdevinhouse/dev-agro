@@ -2,6 +2,7 @@ package com.tpdevinhouse.devagro.empresa.services;
 
 import com.tpdevinhouse.devagro.empresa.models.EmpresaModel;
 import com.tpdevinhouse.devagro.empresa.repositories.EmpresaRepository;
+import com.tpdevinhouse.devagro.fazenda.models.FazendaModel;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,7 +25,6 @@ public class EmpresaService {
     public EmpresaModel cadastrarEmpresa(EmpresaModel empresaModel) {
         return empresaRepository.save(empresaModel);
     }
-
 
     public boolean existsByCnpjEmpresa(String cnpjEmpresa) {
         return empresaRepository.existsByCnpjEmpresa(cnpjEmpresa);
